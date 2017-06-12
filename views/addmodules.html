@@ -1,0 +1,85 @@
+<div class="row" ng-controller="AddModule"><h4>Add Module <button class="btn btn-primary" ng-click="formControlForModule()">Show/Hide Form</button></h4>
+    <div class="col-sm-6 forms"> 
+        <div class="page-header" id="moduleId">            
+        <form ng-submit="addNew()">
+            <div class="form-group">
+                <label>Module Name</label>
+                <input type="text" class="form-control" ng-model = "modulename" placeholder="Enter the name of your module">
+            </div>
+            <div class="form-group">
+                <label>Module Website</label>
+                <div class="input-group">
+                    <div class="input-group-addon">http://</div>                        
+                    <input type="text" class="form-control" ng-model="modulelink" placeholder="Enter Module's Website">
+                </div>
+            </div>
+            <button type="submit" value="submit" class="btn btn-primary">Add Module</button>
+
+        </form>  
+        </div>
+        
+         <h4>Sign-Up 
+         <button class="btn btn-primary" ng-click="formControlForSignUp()">Show/Hide Form</button> </h4>
+        <div class="page-header" id="signupId">        
+        <form ng-submit="signUp()">
+            <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" ng-model="firstname"  placeholder="Enter Your First Name">
+            </div>
+            <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" class="form-control" ng-model="lastname"  placeholder="Enter Your Last Name">
+            </div>
+            <div class="form-group">
+                <label>Email address</label>
+                <input type="email" class="form-control" ng-model="email"  placeholder="Enter your E-mail">
+            </div>
+            <div class="form-group" >
+                <label>Module</label>
+                <select class="form-control" ng-model="dropdown">                    
+                    <option ng-repeat="values in modulearray" value="{{ values.modulename }}">{{ values.modulename | uppercase }}</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign-Up</button>
+        </form>
+        <br><br><br>
+    </div>
+    </div>
+
+
+    <div class="col-sm-6 groups" >
+        <div class="page-header" align="center">
+            <h4>Modules &amp; Groups</h4>
+        </div>
+
+        <div class="panel panel-primary" ng-repeat="value in modulearray | orderBy:'modulename'">
+            <div class="panel-heading" >
+                <h4 class="panel-title">
+                    <a  href="http://{{value.modulelink}}" target="_blank">{{value.modulename | uppercase}}</a>                    
+                </h4>
+            </div>            
+            <div class="panel-body">                
+               <!-- <p class="text-center">No students have signed up for this module.</p> -->
+                <table class="table table-bordered table-hover table-striped"  ng-repeat="values in signuparray" ng-if="values.dropdown == value.modulename">
+
+                <tr><th>First</th><th>Last</th><th>E-mail</th></tr>
+                    <tr>
+                        <td>{{ values.firstname }}</td>
+                        <td>{{ values.lastname }}</td>
+                        <td>{{ values.email }}</td>
+                        <td class="text-center">
+                            <button class="btn btn-warning btn-sm" ng-click="removeStudent(values.firstname)" >
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+                <p class="text-right remove-group-link" >
+                    <button class="btn btn-warning"  ng-click="removeModule(value.modulename)" >
+                        <span class="glyphicon glyphicon-trash"></span> Remove Group
+                    </button>
+                </p>
+            </div>
+        </div>        
+    </div>
+</div>
